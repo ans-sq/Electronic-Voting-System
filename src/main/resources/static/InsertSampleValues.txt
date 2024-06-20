@@ -1,0 +1,52 @@
+-- Addresses
+INSERT INTO Address (AddressID, Street, City, Province, Country, Postal_Code) VALUES
+(1, '123 Main St', 'Karachi', 'Sindh', 'Pakistan', '75500'),
+(2, '456 Elm St', 'Lahore', 'Punjab', 'Pakistan', '54000'),
+(3, '789 Oak St', 'Islamabad', 'Islamabad Capital Territory', 'Pakistan', '44000');
+
+-- Constituencies
+INSERT INTO Constituency (ConstituencyID, Name, Type) VALUES
+(1, 'NA-1', 'National Assembly'),
+(2, 'NA-2', 'National Assembly'),
+(3, 'PP-1', 'Provincial Assembly');
+
+-- Registration_Areas
+INSERT INTO Registration_Area (AreaID, Name, ConstituencyID) VALUES
+(1, 'Area A', 1),
+(2, 'Area B', 2),
+(3, 'Area C', 3);
+
+-- Political_Parties
+INSERT INTO Political_Party (PartyID, Name) VALUES
+(1, 'Party A'),
+(2, 'Party B'),
+(3, 'Party C');
+
+-- Candidates
+INSERT INTO Candidate (CandidateID, Name, PartyID, ConstituencyID) VALUES
+(1, 'Candidate 1', 1, 1),
+(2, 'Candidate 2', 2, 2),
+(3, 'Candidate 3', 3, 3);
+
+-- Election
+INSERT INTO Election (ElectionID, Date, Type) VALUES
+(1, '2024-06-13', 'General'),
+(2, '2023-05-15', 'By-election');
+
+-- Election_Participation
+INSERT INTO Election_Participation (ElectionID, PartyID) VALUES
+(1, 1),
+(1, 2),
+(2, 3);
+
+-- Voter
+INSERT INTO Voter (VoterID, Name, CNIC, DOB, AddressID, AreaID) VALUES
+(1, 'Voter 1', '12345-6789012-3', '1990-01-01', 1, 1),
+(2, 'Voter 2', '23456-7890123-4', '1985-02-02', 2, 2),
+(3, 'Voter 3', '34567-8901234-5', '1975-03-03', 3, 3);
+
+-- Vote
+INSERT INTO Vote (VoterID, ElectionID, CandidateID) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 2, 3);

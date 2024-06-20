@@ -1,0 +1,76 @@
+drop database voting_system;
+
+create database voting_system;
+
+use voting_system;
+
+CREATE TABLE address (
+    AddressID INT PRIMARY KEY,
+    Street VARCHAR(255),
+    City VARCHAR(100),
+    Province VARCHAR(100),
+    Country VARCHAR(100),
+    Postal_Code VARCHAR(20)
+);
+
+CREATE TABLE constituency (
+    ConstituencyID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    Type VARCHAR(100)
+);
+
+CREATE TABLE registration_area (
+    AreaID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    ConstituencyID INT,
+    FOREIGN KEY (ConstituencyID) REFERENCES Constituencies(ConstituencyID)
+);
+
+CREATE TABLE political_party (
+    PartyID INT PRIMARY KEY,
+    Name VARCHAR(255)
+);
+
+CREATE TABLE candidate (
+    CandidateID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    PartyID INT,
+    ConstituencyID INT,
+    FOREIGN KEY (PartyID) REFERENCES Political_Parties(PartyID),
+    FOREIGN KEY (ConstituencyID) REFERENCES Constituencies(ConstituencyID)
+);
+
+CREATE TABLE election (
+    ElectionID INT PRIMARY KEY,
+    Date DATE,
+    Type VARCHAR(100)
+);
+
+CREATE TABLE election_participation (
+    ElectionID INT,
+    PartyID INT,
+    PRIMARY KEY (ElectionID, PartyID),
+    FOREIGN KEY (ElectionID) REFERENCES Election(ElectionID),
+    FOREIGN KEY (PartyID) REFERENCES Political_Parties(PartyID)
+);
+
+CREATE TABLE voter (
+    VoterID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    CNIC VARCHAR(15) UNIQUE,
+    DOB DATE,
+    AddressID INT,
+    AreaID INT,
+    FOREIGN KEY (AddressID) REFERENCES Addresses(AddressID),
+    FOREIGN KEY (AreaID) REFERENCES Registration_Areas(AreaID)
+);
+
+CREATE TABLE vote (
+    VoterID INT,
+    ElectionID INT,
+    CandidateID INT,
+    PRIMARY KEY (VoterID, ElectionID),
+    FOREIGN KEY (VoterID) REFERENCES Voter(VoterID),
+    FOREIGN KEY (ElectionID) REFERENCES Election(ElectionID),
+    FOREIGN KEY (CandidateID) REFERENCES Candidates(CandidateID)
+);
